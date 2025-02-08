@@ -1,26 +1,13 @@
-// Déclaration des variables globales
-let listeQuestions = [];
 let indexQuestionActuelle = 0;
 
-// Fonction pour charger les questions depuis le fichier JSON
-export function chargerQuestions() {
-    fetch('../data/questions.json')
-        .then(response => response.json())
-        .then(data => {
-            listeQuestions = data;
-            afficherQuestion();
-        })
-        .catch(error => console.error("Erreur lors du chargement des questions :", error));
-}
-
 // Fonction pour afficher la question actuelle
-export function afficherQuestion() {
-    if (indexQuestionActuelle >= listeQuestions.length) {
+function afficherQuestion() {
+    if (indexQuestionActuelle >= window.questions.length) {
         document.getElementById("conteneur-question").innerHTML = "<h2>Fin du quiz ! 🎉</h2>";
         return;
     }
 
-    const questionActuelle = listeQuestions[indexQuestionActuelle];
+    const questionActuelle = window.questions[indexQuestionActuelle];
 
     document.getElementById("texte-question").textContent = questionActuelle.texte;
 
@@ -35,5 +22,23 @@ export function afficherQuestion() {
         conteneurReponses.appendChild(boutonReponse);
     });
 
-    document.getElementById("bouton-valider").disabled = true; // Désactiver tant qu'aucune réponse n'est choisie
+    document.getElementById("bouton-valider").disabled = true;
 }
+
+// Fonction pour sélectionner une réponse
+function selectionnerReponse(index) {
+    document.querySelectorAll(".bouton-reponse").forEach(btn => btn.classList.remove("selectionnee"));
+    document.querySelectorAll(".bouton-reponse")[index].classList.add("selectionnee");
+
+    document.getElementById("bouton-valider").disabled = false;
+}
+
+// Fonction pour passer à la question suivante
+function questionSuivante() {
+    indexQuestionActuelle++;
+    afficherQuestion();
+}
+
+// Rendre les fonctions accessibles dans `main.js`
+window.afficherQuestion = afficherQuestion;
+window.questionSuivante = questionSuivante;
