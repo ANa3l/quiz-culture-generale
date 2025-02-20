@@ -17,6 +17,13 @@
 </select>
   <p>Appuyez sur le bouton ci-dessous pour commencer.</p>
   <button onclick="window.location.href='html/quiz.html'">Lancer le quiz</button>
+  <script>
+    // Sauvegarde du niveau de difficulté avant de lancer le quiz
+    const selectDifficulte = document.getElementById("niveau-difficulte");
+    selectDifficulte.addEventListener("change", () => {
+      localStorage.setItem("niveau", selectDifficulte.value);
+    });
+  </script>
 </body>
 
 </html>
