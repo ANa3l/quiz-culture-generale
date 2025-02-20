@@ -1,5 +1,25 @@
 let indexQuestionActuelle = 0;
+let erreurs = 0;
+let timer;       // Stocke l'intervalle du timer
+let tempsRestant; // Temps restant pour la question en cours
 
+// 🔴 Définir un temps par défaut pour chaque question (10 secondes ici)
+let parametres = { temps: 10 };
+
+// Fonction pour afficher le timer dans la page
+function afficherTimer() {
+    let timerElement = document.getElementById("timer");
+    if (!timerElement) {
+      timerElement = document.createElement("p");
+      timerElement.id = "timer";
+      // Insère le timer en haut du conteneur de la question
+      document.getElementById("conteneur-question").prepend(timerElement);
+    }
+    timerElement.textContent = `Temps restant : ${tempsRestant}s`;
+}
+
+
+// 🔴 Initialisation du timer déplacée dans `afficherQuestion()`
 // Fonction pour afficher la question actuelle avec des boutons radio
 function afficherQuestion() {
     if (indexQuestionActuelle >= window.questions.length) {
@@ -35,6 +55,12 @@ function afficherQuestion() {
     });
 
     document.getElementById("bouton-valider").disabled = true;
+
+    // 🔴 Initialisation du timer à chaque affichage de question
+    clearInterval(timer);
+    tempsRestant = parametres.temps;
+    afficherTimer();
+    timer = setInterval(decrementerTimer, 1000);
 }
 
 // Fonction pour activer le bouton valider lorsqu'une réponse est sélectionnée
@@ -44,6 +70,9 @@ function activerBoutonValider() {
 
 // Fonction pour passer à la question suivante
 function questionSuivante() {
+    // Arrête le timer de la question en cours
+    clearInterval(timer);
+
     // Vérifier si une réponse a été sélectionnée
     const reponseSelectionnee = document.querySelector('input[name="reponse"]:checked');
     if (!reponseSelectionnee) return;
