@@ -1,4 +1,6 @@
 let indexQuestionActuelle = 0;
+let score = 0; 
+let timerMystere; 
 
 // Fonction pour afficher la question actuelle avec des boutons radio
 function afficherQuestion() {
@@ -35,6 +37,9 @@ function afficherQuestion() {
     });
 
     document.getElementById("bouton-valider").disabled = true;
+
+    //Ajout du bouton mystère
+    afficherBoutonMystere();
 }
 
 // Fonction pour activer le bouton valider lorsqu'une réponse est sélectionnée
@@ -50,6 +55,21 @@ function questionSuivante() {
 
     indexQuestionActuelle++;
     afficherQuestion();
+}
+
+// Fonction afficher le bouton "Mystère"
+function afficherBoutonMystere() {
+    const boutonMystere = document.getElementById("bouton-mystere");
+    
+    // 30% de chance d'afficher le bouton
+    if (Math.random() < 0.3) {
+        boutonMystere.style.display = "block";
+
+        // Faire disparaître après 5 secondes si non cliqué
+        timerMystere = setTimeout(() => {
+            boutonMystere.style.display = "none";
+        }, 5000);
+    }
 }
 
 // Rendre les fonctions accessibles dans `main.js`
