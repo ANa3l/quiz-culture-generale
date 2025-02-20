@@ -18,6 +18,18 @@ function afficherTimer() {
     timerElement.textContent = `Temps restant : ${tempsRestant}s`;
 }
 
+// Fonction pour décrémenter le timer et passer à la question suivante en cas d'expiration
+function decrementerTimer() {
+    tempsRestant--;
+    afficherTimer();
+    if (tempsRestant <= 0) {
+      clearInterval(timer);
+      // Considère l'absence de réponse comme une erreur
+      erreurs++;
+      indexQuestionActuelle++;
+      afficherQuestion();
+    }
+}
 
 // 🔴 Initialisation du timer déplacée dans `afficherQuestion()`
 // Fonction pour afficher la question actuelle avec des boutons radio
