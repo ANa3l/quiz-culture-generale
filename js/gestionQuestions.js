@@ -120,10 +120,10 @@ function effetMystere() {
     const effets = [
         { type: "bonus", message: "+1 point !", action: () => score++ },
         { type: "bonus", message: "Question gratuite !", action: () => indexQuestionActuelle++ },
-        { type: "bonus", message: "Temps supplémentaire !", action: () => console.log("Ajout de temps") },
+        { type: "bonus", message: "Temps supplémentaire ! (+5s)", action: () => modifierTemps(5) },
         { type: "malus", message: "-1 point !", action: () => score-- },
         { type: "malus", message: "Inversion des réponses !", action: inverserReponses },
-        { type: "malus", message: "Temps réduit !", action: () => console.log("Temps réduit") }
+        { type: "malus", message: "Temps réduit ! (-5s)", action: () => modifierTemps(-5) }
     ];
 
     // Sélection aléatoire d’un effet
@@ -133,6 +133,16 @@ function effetMystere() {
 
     // Cacher le bouton après utilisation
     document.getElementById("bouton-mystere").style.display = "none";
+}
+
+// Fonction pour modifier le timer
+function modifierTemps(valeur) {
+    tempsRestant += valeur;
+
+    // Empêcher d'avoir un temps négatif
+    if (tempsRestant < 0) tempsRestant = 0;
+
+    afficherTimer();
 }
 
 // Fonction pour inverser l'ordre des réponses
