@@ -104,7 +104,7 @@ function afficherBoutonMystere() {
     const boutonMystere = document.getElementById("bouton-mystere");
     
     // 30% de chance d'afficher le bouton
-    if (Math.random() < 0.3) {
+    if (Math.random() < 0.5) {
         boutonMystere.style.display = "block";
 
         // Faire disparaître après 5 secondes si non cliqué
@@ -128,7 +128,20 @@ function effetMystere() {
 
     // Sélection aléatoire d’un effet
     const effetChoisi = effets[Math.floor(Math.random() * effets.length)];
-    alert(effetChoisi.message);
+    Swal.fire({
+        title: "🎁 Surprise !",
+        text: effetChoisi.message,
+        icon: effetChoisi.type === "bonus" ? "success" : "warning",
+        confirmButtonText: "OK",
+        timer: 3000,  // Ferme automatiquement après 3s
+        showClass: {
+            popup: "animate__animated animate__fadeInDown"
+        },
+        hideClass: {
+            popup: "animate__animated animate__fadeOutUp"
+        }
+    });
+    
     effetChoisi.action();
 
     // Cacher le bouton après utilisation
