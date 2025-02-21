@@ -119,7 +119,7 @@ function effetMystere() {
     clearTimeout(timerMystere); // Empêche le bouton de disparaître après clic
     const effets = [
         { type: "bonus", message: "+1 point !", action: () => score++ },
-        { type: "bonus", message: "Question gratuite !", action: () => indexQuestionActuelle++ },
+        { type: "bonus", message: "Question gratuite !", action: poserQuestionBonus },
         { type: "bonus", message: "Temps supplémentaire ! (+5s)", action: () => modifierTemps(5) },
         { type: "malus", message: "-1 point !", action: () => score-- },
         { type: "malus", message: "Inversion des réponses !", action: inverserReponses },
@@ -142,7 +142,7 @@ function effetMystere() {
         }
     });
     
-    effetChoisi.action();
+   effetChoisi.action();
 
     // Cacher le bouton après utilisation
     document.getElementById("bouton-mystere").style.display = "none";
@@ -162,6 +162,39 @@ function modifierTemps(valeur) {
 function inverserReponses() {
     window.questions[indexQuestionActuelle].reponses.reverse();
     afficherQuestion();
+}
+
+// Fonction pour poser une question bonus immédiatement
+function poserQuestionBonus() {
+    clearInterval(timer); // Met en pause le timer principal
+
+    // Sélectionner une question bonus au hasard
+    const questionBonus = window.questionsBonus[Math.floor(Math.random() * window.questionsBonus.length)];
+
+    Swal.fire({
+        title: "🎁 Question Bonus !",
+        text: questionBonus.texte,
+        icon: "question",
+        input: "radio",
+        inputOptions: questionBonus.reponses.reduce((options, reponse, index) => {
+            options[index] = reponse;
+            return options;
+        }, {}),
+        confirmButtonText: "Valider",
+        showCancelButton: false,
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 🔹 Après la question bonus, reprendre la question normale
+            reprendreQuestionNormale();
+        }
+    });
+}
+
+// Fonction pour reprendre la question en cours après la question bonus
+function reprendreQuestionNormale() {
+    afficherTimer();  // Réafficher le temps restant
+    timer = setInterval(decrementerTimer, 1000);  // Reprendre le timer
 }
 
 // Rendre les fonctions accessibles dans `main.js`
