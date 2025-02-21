@@ -72,6 +72,33 @@ function afficherBoutonMystere() {
     }
 }
 
+// Fonction pour appliquer un bonus ou malus
+function effetMystere() {
+    clearTimeout(timerMystere); // Empêche le bouton de disparaître après clic
+    const effets = [
+        { type: "bonus", message: "+1 point !", action: () => score++ },
+        { type: "bonus", message: "Question gratuite !", action: () => indexQuestionActuelle++ },
+        { type: "bonus", message: "Temps supplémentaire !", action: () => console.log("Ajout de temps") },
+        { type: "malus", message: "-1 point !", action: () => score-- },
+        { type: "malus", message: "Inversion des réponses !", action: inverserReponses },
+        { type: "malus", message: "Temps réduit !", action: () => console.log("Temps réduit") }
+    ];
+
+    // Sélection aléatoire d’un effet
+    const effetChoisi = effets[Math.floor(Math.random() * effets.length)];
+    alert(effetChoisi.message);
+    effetChoisi.action();
+
+    // Cacher le bouton après utilisation
+    document.getElementById("bouton-mystere").style.display = "none";
+}
+
+// Fonction pour inverser l'ordre des réponses
+function inverserReponses() {
+    window.questions[indexQuestionActuelle].reponses.reverse();
+    afficherQuestion();
+}
+
 // Rendre les fonctions accessibles dans `main.js`
 window.afficherQuestion = afficherQuestion;
 window.questionSuivante = questionSuivante;
