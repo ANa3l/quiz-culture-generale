@@ -270,8 +270,31 @@ function poserQuestionBonus() {
         allowOutsideClick: false
     }).then((result) => {
         if (result.isConfirmed) {
-            // 🔹 Après la question bonus, reprendre la question normale
-            reprendreQuestionNormale();
+            const reponseIndex = result.value; // Récupérer l'indice de la réponse sélectionnée
+            const bonneReponse = questionBonus.reponses[0]; // La bonne réponse est toujours la première dans data.js
+            let message, iconType;
+
+            // Vérifier si la réponse choisie est correcte
+            if (questionBonus.reponses[reponseIndex] === bonneReponse) {
+                score++; // ✅ Augmenter le score si c'est correct
+                afficherScore(); // ✅ Mettre à jour l'affichage du score
+                message = `Bonne réponse ! 🎉 (+1 point)`;
+                iconType = "success";
+            } else {
+                message = `Mauvaise réponse 😢 La bonne réponse était : "${bonneReponse}"`;
+                iconType = "error";
+            }
+
+            // Afficher un message à l'utilisateur
+            Swal.fire({
+                title: iconType === "success" ? "🎉 Bravo !" : "❌ Oups...",
+                text: message,
+                icon: iconType,
+                confirmButtonText: "Continuer"
+            }).then(() => {
+                // 🔹 Après la question bonus, reprendre la question normale
+                reprendreQuestionNormale();
+            });
         }
     });
 }
