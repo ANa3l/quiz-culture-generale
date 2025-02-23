@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Quiz de Culture Générale</title>
   <style>
     #score {
@@ -13,15 +14,17 @@
   </style>
 </head>
 <body>
-<h1>Quiz de Culture Générale</h1>
-<div id="conteneur-question">
-  <p id="texte-question">Chargement...</p>
-  <p id="num-question"></p>
-  <div id="conteneur-reponses"></div>
-  <button id="bouton-valider" disabled>Valider</button>
-</div>
+  <h1>Quiz de Culture Générale</h1>
+  <div id="conteneur-question">
+    <p id="texte-question">Chargement...</p>
+    <div id="conteneur-reponses"></div>
+    <p id="num-question"></p>
+    <button id="bouton-valider" disabled>Valider</button>
+    <button id="bouton-mystere" style="display: none;">Mystère</button>
+  </div>
 
 <script src="../data/data.js"></script>
 <script src="../js/gestionQuestions.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>
