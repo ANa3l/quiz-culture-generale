@@ -110,9 +110,7 @@ function afficherQuestion() {
              <p>Votre score final : ${score}/${totalQuestions}</p>
              <button id="rejouer-btn">Recommencer le quiz</button>`; // Ajout du bouton "Rejouer"
 
-        // Ajouter l'événement au bouton "Rejouer"
-        const boutonRejouer = document.getElementById("rejouer-btn");
-        boutonRejouer.addEventListener("click", rejouerQuiz); // Écouteur d'événement uniquement ici
+        document.getElementById("rejouer-btn").addEventListener("click", rejouerQuiz);
 
         return;
     }
@@ -203,10 +201,10 @@ function afficherBoutonMystere() {
 function effetMystere() {
     clearTimeout(timerMystere); // Empêche le bouton de disparaître après clic
     const effets = [
-        { type: "bonus", message: "+1 point !", action: () => score++ },
+        { type: "bonus", message: "+1 point !", action: () => { score++; afficherScore(); } },
         { type: "bonus", message: "Question gratuite !", action: poserQuestionBonus },
         { type: "bonus", message: "Temps supplémentaire ! (+5s)", action: () => modifierTemps(5) },
-        { type: "malus", message: "-1 point !", action: () => score-- },
+        { type: "malus", message: "-1 point !", action: () => { score--; afficherScore(); } },
         { type: "malus", message: "Inversion des réponses !", action: inverserReponses },
         { type: "malus", message: "Temps réduit ! (-5s)", action: () => modifierTemps(-5) }
     ];
@@ -313,9 +311,20 @@ function reprendreQuestionNormale() {
 
 // Fonction pour rejouer le quiz (appelée après la fin du quiz)
 function rejouerQuiz() {
-    // Réinitialiser toutes les variables et recommencer
-    initialiserQuiz();
+    document.getElementById("conteneur-question").innerHTML = `
+        <p id="texte-question">Chargement...</p>
+        <div id="conteneur-reponses"></div>
+        <p id="num-question"></p>
+        <button id="bouton-valider" disabled>Valider</button>
+        <button id="bouton-mystere" style="display: none;">Mystère</button>
+    `;
+    // 🔹 Réattacher les événements après recréation des boutons
+    document.getElementById("bouton-valider").addEventListener("click", questionSuivante);
+    document.getElementById("bouton-mystere").addEventListener("click", effetMystere);
+
+    initialiserQuiz(); // 🔹 Relance le quiz proprement
 }
+
 
 window.afficherQuestion = afficherQuestion;
 window.questionSuivante = questionSuivante;

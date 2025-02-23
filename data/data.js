@@ -73,5 +73,13 @@ window.questionsBonus = [
     {
         "texte": "Quel est le symbole chimique du fer ?",
         "reponses": ["Fe", "Ir", "Pb", "Au"]
+    },
+    {
+        "texte": "Quel est le plus long fleuve du monde ?",
+        "reponses": ["Nil", "Amazon", "Mississippi", "Yangtsé"]
+    },
+    {
+        "texte": "Qui a inventé l’ampoule électrique ?",
+        "reponses": ["Thomas Edison", "Nikola Tesla", "Alexander Graham Bell", "Benjamin Franklin"]
     }
 ];
