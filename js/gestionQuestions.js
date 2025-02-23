@@ -245,8 +245,14 @@ function modifierTemps(valeur) {
 
 // Fonction pour inverser l'ordre des réponses
 function inverserReponses() {
-    window.questions[indexQuestionActuelle].reponses.reverse();
-    afficherQuestion();
+    // Vérifie qu'on est bien dans une question valide
+    if (indexQuestionActuelle < questionsQuiz.length) {
+        // Inverser l'ordre des réponses de la question actuelle
+        questionsQuiz[indexQuestionActuelle].reponses.reverse();
+        
+        // Réafficher la question avec les réponses inversées
+        afficherQuestion();
+    }
 }
 
 // Fonction pour poser une question bonus immédiatement
