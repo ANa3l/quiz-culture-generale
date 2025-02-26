@@ -1,13 +1,44 @@
 let indexQuestionActuelle = 0;
-let timerMystere; 
-
 let erreurs = 0;
 let timer;       // Stocke l'intervalle du timer
 let tempsRestant; // Temps restant pour la question en cours
 
-// 🔴 Définir un temps par défaut pour chaque question (10 secondes ici)
-let parametres = { temps: 10 };
+// 🔴 Définition des niveaux de difficulté et de leurs paramètres
+const niveaux = {
+    "Facile": { temps: 20, erreursMax: 5 },
+    "Moyen": { temps: 15, erreursMax: 3 },
+    "Difficile": { temps: 10, erreursMax: 2 }
+};
 
+// 🔴 Récupération du niveau choisi (par défaut "Moyen" si rien n'est sélectionné)
+let niveauChoisi = localStorage.getItem("niveau") || "Moyen";
+let parametres = niveaux[niveauChoisi];
+
+// Fonction pour afficher le timer dans la page
+function afficherTimer() {
+    let timerElement = document.getElementById("timer");
+    if (!timerElement) {
+      timerElement = document.createElement("p");
+      timerElement.id = "timer";
+      // Insère le timer en haut du conteneur de la question
+      document.getElementById("conteneur-question").prepend(timerElement);
+    }
+    timerElement.textContent = `Temps restant : ${tempsRestant}s`;
+}
+
+// Fonction pour décrémenter le timer et passer à la question suivante en cas d'expiration
+function decrementerTimer() {
+    tempsRestant--;
+    afficherTimer();
+    if (tempsRestant <= 0) {
+      clearInterval(timer);
+      // Considère l'absence de réponse comme une erreur
+      erreurs++;
+      indexQuestionActuelle++;
+      afficherQuestion();
+    }
+}
+let timerMystere;
 // Fonction pour afficher le timer dans la page
 function afficherTimer() {
     let timerElement = document.getElementById("timer");
@@ -99,6 +130,7 @@ function afficherScore() {
 
 // Fonction pour afficher la question actuelle
 function afficherQuestion() {
+
     // Si toutes les questions sont terminées
     if (indexQuestionActuelle >= questionsQuiz.length) {
         const messageFinal = score / totalQuestions > 0.75
@@ -148,10 +180,8 @@ function afficherQuestion() {
 
     // Désactiver le bouton de validation au début de chaque question
     document.getElementById("bouton-valider").disabled = true;
-
     //Ajout du bouton mystère
     afficherBoutonMystere();
-
     // 🔴 Initialisation du timer à chaque affichage de question
     clearInterval(timer);
     tempsRestant = parametres.temps;
