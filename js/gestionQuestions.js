@@ -204,7 +204,7 @@ function afficherBoutonMystere() {
     const boutonMystere = document.getElementById("bouton-mystere");
     
     // 30% de chance d'afficher le bouton
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.4) {
         boutonMystere.innerHTML = "🎭 Mystère"; 
         boutonMystere.style.display = "block";
 
