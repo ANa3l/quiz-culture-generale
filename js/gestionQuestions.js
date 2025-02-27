@@ -14,41 +14,27 @@ const niveaux = {
 let niveauChoisi = localStorage.getItem("niveau") || "Moyen";
 let parametres = niveaux[niveauChoisi];
 
-// Fonction pour afficher le timer dans la page
-function afficherTimer() {
-    let timerElement = document.getElementById("timer");
-    if (!timerElement) {
-      timerElement = document.createElement("p");
-      timerElement.id = "timer";
-      // Insère le timer en haut du conteneur de la question
-      document.getElementById("conteneur-question").prepend(timerElement);
-    }
-    timerElement.textContent = `Temps restant : ${tempsRestant}s`;
-}
-
-// Fonction pour décrémenter le timer et passer à la question suivante en cas d'expiration
-function decrementerTimer() {
-    tempsRestant--;
-    afficherTimer();
-    if (tempsRestant <= 0) {
-      clearInterval(timer);
-      // Considère l'absence de réponse comme une erreur
-      erreurs++;
-      indexQuestionActuelle++;
-      afficherQuestion();
-    }
-}
 let timerMystere;
 // Fonction pour afficher le timer dans la page
 function afficherTimer() {
-    let timerElement = document.getElementById("timer");
-    if (!timerElement) {
-      timerElement = document.createElement("p");
-      timerElement.id = "timer";
-      // Insère le timer en haut du conteneur de la question
-      document.getElementById("conteneur-question").prepend(timerElement);
+    const timerElement = document.getElementById("timer");
+    const timerCircle = document.getElementById("timer-circle");
+    const timerContainer = document.getElementById("timer-container");
+
+    timerElement.textContent = tempsRestant; // 🔹 Affiche uniquement les secondes
+
+    // 🔹 Animation de la progression
+    const totalTime = parametres.temps; // Temps initial (ex: 10s)
+    const dashArray = 188; // Longueur totale du cercle
+    const dashOffset = dashArray * (1 - tempsRestant / totalTime);
+    timerCircle.style.strokeDashoffset = dashOffset;
+
+    // 🔥 Si le temps est ≤ 5s, change en rouge
+    if (tempsRestant <= 5) {
+        timerContainer.classList.add("low-time");
+    } else {
+        timerContainer.classList.remove("low-time");
     }
-    timerElement.textContent = `Temps restant : ${tempsRestant}s`;
 }
 
 // Fonction pour décrémenter le timer et passer à la question suivante en cas d'expiration
@@ -133,6 +119,7 @@ function afficherQuestion() {
 
     // Si toutes les questions sont terminées
     if (indexQuestionActuelle >= questionsQuiz.length) {
+        document.getElementById("info-quiz").style.display = "none";
         const messageFinal = score / totalQuestions > 0.75
             ? `<h2>Bravo, vous avez réussi ! 🎉</h2>`
             : `<h2>Fin du quiz ! 🎉</h2>`;
@@ -218,6 +205,7 @@ function afficherBoutonMystere() {
     
     // 30% de chance d'afficher le bouton
     if (Math.random() < 0.5) {
+        boutonMystere.innerHTML = "🎭 Mystère"; 
         boutonMystere.style.display = "block";
 
         // Faire disparaître après 5 secondes si non cliqué
@@ -341,6 +329,7 @@ function reprendreQuestionNormale() {
 
 // Fonction pour rejouer le quiz (appelée après la fin du quiz)
 function rejouerQuiz() {
+    document.getElementById("info-quiz").style.display = "flex";
     document.getElementById("conteneur-question").innerHTML = `
         <p id="texte-question">Chargement...</p>
         <div id="conteneur-reponses"></div>

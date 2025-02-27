@@ -1,0 +1,186 @@
+/* 🌟 Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 🌟 Style du conteneur principal */
+#conteneur-question {
+    width: 300px;
+    height: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+}
+
+/* 🌟 Style des boutons */
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 🌟 Style du bouton Mystère */
+#bouton-mystere {
+    background: linear-gradient(135deg, #ff4081, #ff79b0); /* Dégradé rose flashy */
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(255, 64, 129, 0.3);
+    transition: 0.3s;
+    display: none; /* Caché par défaut */
+}
+
+/* 🔥 Effet au survol */
+#bouton-mystere:hover {
+    background: linear-gradient(135deg, #ff79b0, #ff4081);
+    box-shadow: 0px 4px 15px rgba(255, 64, 129, 0.5);
+}
+
+
+/* 🌟 Style des réponses */
+#conteneur-reponses div {
+    margin: 5px 0;
+    padding: 10px;
+    background: #e3e3e3;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#conteneur-reponses div:hover {
+    background: #d1d1d1;
+}
+
+/* 🌟 Style du score */
+#score {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #28a745;
+    margin: 15px 0;
+}
+
+/* 🌟 Animation d'apparition */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#conteneur-question, #score, button {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🌟 Conteneur du score et du timer */
+#info-quiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    width: fit-content;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* 🌟 Style du score */
+#score {
+    background: linear-gradient(135deg, #ffaf00, #ff5700);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 🌟 Style du timer */
+#timer-container {
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+
+/* 🌟 Cercle SVG */
+svg {
+    transform: rotate(-90deg);
+}
+
+/* 🌟 Fond du timer */
+#timer-bg {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 6;
+}
+
+/* 🌟 Cercle animé */
+#timer-circle {
+    fill: none;
+    stroke: #007BFF;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s linear;
+    stroke-dasharray: 188; /* Longueur initiale du cercle */
+    stroke-dashoffset: 0;
+}
+
+/* 🌟 Timer au centre */
+#timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* 🔥 Si le temps est bas, couleur rouge */
+.low-time #timer-circle {
+    stroke: #FF0000;
+}
+.low-time #timer {
+    color: #FF0000;
+}
+
+/* 🌟 Centrer le message de fin de quiz */
+#conteneur-question.fin-quiz {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* 🌟 Conteneur des boutons */
+#conteneur-boutons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espacement entre les boutons */
+    margin-top: 15px;
+}
+
+
+
