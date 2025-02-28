@@ -70,14 +70,6 @@ button:hover {
     background: #d1d1d1;
 }
 
-/* 🌟 Style du score */
-#score {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #28a745;
-    margin: 15px 0;
-}
-
 /* 🌟 Animation d'apparition */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -181,3 +173,44 @@ svg {
     gap: 15px; /* Espacement entre les boutons */
     margin-top: 15px;
 }
+/* Style pour le message de succès */
+.message-reussi {
+    font-size: 2rem;
+    color: #4CAF50; /* Vert pour le succès */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    animation: zoomIn 1s ease-out;
+}
+
+/* Style pour le message de fin du quiz */
+.message-fini {
+    font-size: 2rem;
+    color: #FF5722; /* Rouge pour la fin */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    animation: zoomIn 1s ease-out;
+}
+
+/* Animation pour l'apparition du message */
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Style pour le score final */
+.score-final {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    margin: 20px 0;
+}
+

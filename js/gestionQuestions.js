@@ -121,12 +121,12 @@ function afficherQuestion() {
     if (indexQuestionActuelle >= questionsQuiz.length) {
         document.getElementById("info-quiz").style.display = "none";
         const messageFinal = score / totalQuestions > 0.75
-            ? `<h2>Bravo, vous avez réussi ! 🎉</h2>`
-            : `<h2>Fin du quiz ! 🎉</h2>`;
+            ? `<h2 class="message-reussi">Bravo, vous avez réussi ! 🎉</h2>`
+            : `<h2 class="message-fini">Fin du quiz ! 🎉</h2>`;
 
         document.getElementById("conteneur-question").innerHTML =
             `${messageFinal}
-             <p>Votre score final : ${score}/${totalQuestions}</p>
+             <p class="score-final">Votre score final : ${score}/${totalQuestions}</p>
              <button id="rejouer-btn">Recommencer le quiz</button>`; // Ajout du bouton "Rejouer"
 
         document.getElementById("rejouer-btn").addEventListener("click", rejouerQuiz);
