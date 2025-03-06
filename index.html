@@ -4,26 +4,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
   <title>Menu du Quiz</title>
 </head>
 
 <body>
-  <h1>Bienvenue dans le Quiz de Culture Générale</h1>
-  <p>Choisissez le niveau de difficulté :</p>
-<select id="niveau-difficulte">
-  <option value="Facile">Facile</option>
-  <option value="Moyen" selected>Moyen</option>
-  <option value="Difficile">Difficile</option>
-</select>
-  <p>Appuyez sur le bouton ci-dessous pour commencer.</p>
-  <button onclick="window.location.href='html/quiz.html'">Lancer le quiz</button>
-  <script>
-    // Sauvegarde du niveau de difficulté avant de lancer le quiz
-    const selectDifficulte = document.getElementById("niveau-difficulte");
-    selectDifficulte.addEventListener("change", () => {
-      localStorage.setItem("niveau", selectDifficulte.value);
-    });
-  </script>
+  <div id="accueil-container">
+    <h1>Bienvenue dans le Quiz de Culture Générale</h1>
+    <p>Choisissez le niveau de difficulté :</p>
+  <select id="niveau-difficulte">
+    <option value="Facile">Facile</option>
+    <option value="Moyen" selected>Moyen</option>
+    <option value="Difficile">Difficile</option>
+  </select>
+    <p>Appuyez sur le bouton ci-dessous pour commencer.</p>
+    <button onclick="window.location.href='html/quiz.html'">Lancer le quiz</button>
+    <script>
+      // Sauvegarde du niveau de difficulté avant de lancer le quiz
+      const selectDifficulte = document.getElementById("niveau-difficulte");
+      selectDifficulte.addEventListener("change", () => {
+        localStorage.setItem("niveau", selectDifficulte.value);
+      });
+    </script>
+  </div>
 </body>
 
 </html>

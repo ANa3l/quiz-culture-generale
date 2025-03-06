@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/quiz-style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Quiz de Culture Générale</title>
   <style>
@@ -15,12 +16,24 @@
 </head>
 <body>
   <h1>Quiz de Culture Générale</h1>
+  <div id="info-quiz">
+    <div id="score">Score : 0</div>
+    <div id="timer-container">
+        <svg width="70" height="70">
+            <circle id="timer-bg" cx="35" cy="35" r="30"></circle>
+            <circle id="timer-circle" cx="35" cy="35" r="30"></circle>
+        </svg>
+        <span id="timer">10</span>
+    </div>
+  </div>
   <div id="conteneur-question">
     <p id="texte-question">Chargement...</p>
     <div id="conteneur-reponses"></div>
     <p id="num-question"></p>
-    <button id="bouton-valider" disabled>Valider</button>
-    <button id="bouton-mystere" style="display: none;">Mystère</button>
+    <div id="conteneur-boutons">
+      <button id="bouton-valider" disabled>Valider</button>
+      <button id="bouton-mystere" style="display: none;">Mystère</button>
+    </div>
   </div>
 
 <script src="../data/data.js"></script>
